@@ -1,28 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Button } from 'antd';
+import { Switch,Route, Redirect }from 'react-router-dom';
+import {adminRoutes} from './routes';
+import  Frame from './components/Frame/index';
 import './App.css';
-import 'antd/dist/antd.css';
-
 function App() {
   return (
-    <div className="App">
-      <Button type="primary">按钮</Button>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   
+    <Frame>
+     <h1>app组件</h1> 
+     <Switch>
+      {adminRoutes.map(route=>{
+          return (
+          <Route key={route.path} path={route.path} exact={route.exact}
+          render={routeProps=>{
+                return <route.component{...routeProps}/>;
+
+          }}></Route>
+          );
+
+      })}
+      <Redirect to="/404"></Redirect>
+     </Switch>
+     </Frame>
   );
 }
 
